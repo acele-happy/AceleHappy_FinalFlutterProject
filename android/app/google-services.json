@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "102017950403",
+    "project_id": "constore-e2314",
+    "storage_bucket": "constore-e2314.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102017950403:android:9f37368ed657d0d4b8f876",
+        "android_client_info": {
+          "package_name": "com.alu.venturelink.alu_venture_link"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARFtGTr3kHjk7bIB7F-w1DFggnJi4mzps"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
