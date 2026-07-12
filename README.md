@@ -1,108 +1,195 @@
-# ALU Connect — ALU Internship & Startup Hub
+# ALU Connect
 
-ALU Connect is a Flutter mobile application that connects ALU students seeking internship experience with student-led startups and early-stage ventures within the ALU ecosystem.
+**ALU Connect** is a Flutter + Firebase mobile application that connects ALU
+students seeking internship experience with student-led startups and
+early-stage ventures within the ALU ecosystem.
+
+<p>
+  <img alt="Flutter" src="https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter&logoColor=white">
+  <img alt="Firebase" src="https://img.shields.io/badge/Backend-Firebase-FFCA28?logo=firebase&logoColor=black">
+  <img alt="Riverpod" src="https://img.shields.io/badge/State-Riverpod-1FA97F">
+  <img alt="License" src="https://img.shields.io/badge/status-final%20project-F97A3C">
+</p>
+
+---
 
 ## Problem Statement
 
-Many ALU students struggle to secure internships at established organizations, while campus entrepreneurs need support in software development, design, marketing, operations, research, and more. ALU Connect bridges this gap with a verified, mobile-first platform.
+Many ALU students struggle to secure internships at established
+organizations, while student entrepreneurs on campus need support in
+software development, design, marketing, operations, research, business
+analysis, content creation, and community management. ALU Connect bridges
+that gap with a verified, mobile-first platform: startups post
+opportunities, students discover and apply for them, and every startup on
+the platform has been recognized by ALU before it's allowed to post.
 
 ## Features
 
-### Core (Assignment Requirements)
-- **Authentication & Onboarding** — ALU email-only registration (`@alueducation.com`), role selection (Student / Founder), guided profile setup
-- **Startup Profiles** — Founder-created profiles with ALU admin verification workflow
-- **Opportunity Posting** — Verified startups can post internships, projects, and volunteer roles
-- **Discovery & Search** — Real-time opportunity feed with text search, type filters, and remote toggle
-- **Applications** — Students submit cover letters; founders review and update status
-- **Real-time Updates** — Firestore streams for opportunities, applications, bookmarks, and notifications
-- **Firebase Backend** — Auth, Firestore, and Storage integration
-- **State Management** — Riverpod (providers, stream providers, StateNotifier for filters)
+### For students
+- Email/password authentication restricted to ALU email domains
+- Guided onboarding to build a profile (major, graduation year, bio, skills)
+- Real-time opportunity discovery feed with search and category filters
+- Opportunity detail view and one-tap application submission
+- Application tracker with live status updates (pending / reviewing / accepted / rejected)
+- Bookmark opportunities to revisit later
+- In-app notifications for application status changes
 
-### Beyond Minimum
-- Skill-based opportunity recommendations
-- Bookmarking / saved opportunities
-- In-app notifications (application received, status changes, startup verified)
-- Admin dashboard for startup verification
-- Application tracking with status pipeline (Pending → Reviewing → Accepted/Rejected)
+### For startups
+- Startup profile creation (industry, ALU program/cohort, description)
+- **ALU verification gate** — new startups start `pending` and can only post
+  opportunities once approved, enforced server-side via Firestore Security
+  Rules, not just the UI
+- Post, edit, and manage opportunity listings
+- Review incoming applicants in real time
 
-## Architecture
+### Platform-wide
+- An **admin dashboard** for reviewing and approving pending startup
+  verification requests
+- Real-time updates throughout — no manual refresh anywhere in the app
+- A consistent design system (see below) applied across every screen
+
+## Tech Stack
+
+| Layer | Choice |
+|---|---|
+| Framework | Flutter |
+| Backend | Firebase (Authentication, Cloud Firestore, Security Rules) |
+| State management | Riverpod (`flutter_riverpod`) |
+| Routing | `go_router` |
+| Fonts | Google Fonts (Inter) |
+
+## Why Riverpod
+
+Riverpod was chosen over Provider and BLoC because its providers are
+compile-time safe, don't depend on `BuildContext`, and map cleanly onto
+Firestore's async/stream API — `StreamProvider` wraps a Firestore query
+almost one-to-one, which is what powers every real-time list in this app
+(the discovery feed, applications tracker, notifications, and startup
+dashboard) without manual `StreamBuilder` nesting.
+
+## Design System
+
+ALU Connect uses a warm, approachable visual language — a peach-to-cream
+gradient background, a single strong orange accent, and rounded,
+soft-shadowed cards — applied globally via a `MaterialApp` `builder` in
+`app.dart`, so every screen inherits it automatically.
+
+| Role | Color |
+|---|---|
+| Primary | `#F97A3C` |
+| Accent / positive | `#1FA97F` |
+| Background gradient | `#FDF6F0` → `#FBDFC7` |
+| Text primary / secondary | `#231F1A` / `#9B948C` |
+
+## Project Structure
 
 ```
 lib/
-├── core/           # Theme, constants, router
-├── models/         # Data models (User, Startup, Opportunity, Application)
-├── services/       # Firebase service layer (repository pattern)
-├── providers/      # Riverpod providers & state notifiers
-├── features/       # Feature-based UI screens
-└── widgets/        # Shared UI components
+├── main.dart                    # Entry point — initializes Firebase, wraps app in ProviderScope
+├── app.dart                     # MaterialApp.router setup, theme, global gradient background
+├── firebase_options.dart        # Generated by `flutterfire configure`
+│
+├── core/
+│   ├── constants/                # App-wide constants (name, ALU email domains, skills, industries)
+│   ├── router/                   # go_router route definitions
+│   ├── theme/                    # AppColors + AppTheme (the orange design system)
+│   └── utils/
+│
+├── models/                      # Typed data models (User, Startup, Opportunity, Application, Notification)
+│
+├── providers/
+│   └── app_providers.dart       # Riverpod providers wiring services/repositories to the UI
+│
+├── services/
+│   └── firebase_service.dart    # Firebase Auth / Firestore access layer
+│
+├── widgets/                     # Shared reusable widgets (cards, chips, empty/loading/error states)
+│
+└── features/                    # One folder per feature, each owning its own screens
+    ├── auth/                     # Splash, login, register
+    ├── onboarding/                # Role-specific profile setup (student vs. startup)
+    ├── home/                      # Discovery feed (tabbed: opportunities / startups)
+    ├── opportunities/             # Opportunity detail + post/edit opportunity
+    ├── applications/              # Application tracker + detail
+    ├── startups/                  # Startup profile screens
+    ├── bookmarks/                 # Saved opportunities
+    ├── notifications/             # In-app notification feed
+    ├── profile/                   # User profile & settings
+    └── admin/                     # Startup verification review dashboard
 ```
-
-**State Management:** Riverpod was chosen for compile-safe dependency injection, first-class StreamProvider support for Firestore real-time data, and separation of UI from business logic.
-
-**Navigation:** `go_router` with auth-aware redirects and shell routes for bottom navigation.
-
-## Firebase Setup
-
-### 1. Create Firebase Project
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Create a new project (e.g. `alu-venture-link`)
-3. Enable **Authentication** → Email/Password
-4. Create a **Firestore Database** 
-5. Enable **Storage** 
-
-### 2. Register Mobile Apps
-Add Android and iOS apps in Firebase Console, then run:
-
-```bash
-# Install FlutterFire CLI
-dart pub global activate flutterfire_cli
-
-# Configure Firebase (generates firebase_options.dart)
-cd alu_venture_link
-flutterfire configure
-```
-
-### 3. Deploy Firestore Rules & Indexes
-
-```bash
-firebase deploy --only firestore
-```
-
-Copy `firestore.rules` and `firestore.indexes.json` from this repo into your Firebase project.
-
-### 4. Create Admin User
-After registering a user, manually set their role in Firestore:
-
-```
-users/{uid}/role = "admin"
-```
-
-This grants access to the Admin Verification dashboard.
 
 ## Firestore Schema
 
-| Collection | Key Fields |
+| Collection | Purpose |
 |---|---|
-| `users` | email, role, displayName, skills[], onboardingComplete |
-| `startups` | founderId, name, industry, verificationStatus, aluProgram |
-| `opportunities` | startupId, title, skills[], type, status, applicationCount |
-| `applications` | opportunityId, studentId, startupId, coverLetter, status |
-| `notifications` | userId, title, body, type, read |
-| `users/{uid}/bookmarks` | opportunityId |
+| `users/{uid}` | Account profile — role (student/startup/admin), skills, onboarding status |
+| `startups/{startupId}` | Startup profile, including `verificationStatus` (`pending` / `verified` / `rejected`) |
+| `opportunities/{opportunityId}` | Opportunity postings, linked to a `startupId` |
+| `applications/{applicationId}` | Student ↔ opportunity applications, with a live `status` field |
+| `notifications/{uid}/items/{id}` | Per-user notification feed |
+| `bookmarks/{uid}/items/{id}` | A student's saved opportunities |
 
-## Running the App
+## Getting Started
+
+### Prerequisites
+- Flutter SDK (3.x)
+- A Firebase project with **Email/Password Authentication** and
+  **Cloud Firestore** enabled
+
+### Setup
 
 ```bash
+git clone <your-repo-url>
 cd alu_venture_link
 flutter pub get
-flutter run   # Requires Android emulator or physical device
 ```
 
-## Testing
+Connect the app to your own Firebase project:
 
 ```bash
-flutter test
-flutter analyze
+dart pub global activate flutterfire_cli
+flutterfire configure
 ```
 
+Deploy the Firestore Security Rules and composite indexes (both already
+included in this repo — `firestore.rules` and `firestore.indexes.json`):
 
+```bash
+npm install -g firebase-tools
+firebase login
+firebase deploy --only firestore
+```
+
+Run the app:
+
+```bash
+flutter run
+```
+
+### Testing the verification flow
+
+New startup accounts register with `verificationStatus: pending` by
+design — they can't post opportunities until approved. To test the full
+flow, either:
+- Use the in-app **Admin dashboard** (if your account has the `admin`
+  role), or
+- Manually set a startup's `verificationStatus` to `verified` in the
+  Firebase console under `startups/{startupId}`.
+
+## Known Limitations
+
+- No offline persistence / pagination yet — the discovery feed loads all
+  matching opportunities per query.
+- Automated widget/integration tests are not yet included.
+- Direct messaging between students and startups is not implemented.
+
+## Roadmap
+
+- Skill-based opportunity recommendations
+- In-app chat between applicants and startups
+- Interview scheduling
+- Analytics dashboard for startups
+
+## License
+
+Built as a final project submission — not licensed for redistribution.
