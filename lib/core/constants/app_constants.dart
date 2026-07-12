@@ -1,5 +1,5 @@
 class AppConstants {
-  static const appName = 'VentureLink';
+  static const appName = 'ALU Connect';
   static const appTagline = 'ALU Internship & Startup Hub';
 
   static const aluEmailDomains = ['alueducation.com', 'alustudent.com'];

@@ -1,10 +1,10 @@
-# VentureLink — ALU Internship & Startup Hub
+# ALU Connect — ALU Internship & Startup Hub
 
-VentureLink is a Flutter mobile application that connects ALU students seeking internship experience with student-led startups and early-stage ventures within the ALU ecosystem.
+ALU Connect is a Flutter mobile application that connects ALU students seeking internship experience with student-led startups and early-stage ventures within the ALU ecosystem.
 
 ## Problem Statement
 
-Many ALU students struggle to secure internships at established organizations, while campus entrepreneurs need support in software development, design, marketing, operations, research, and more. VentureLink bridges this gap with a verified, mobile-first platform.
+Many ALU students struggle to secure internships at established organizations, while campus entrepreneurs need support in software development, design, marketing, operations, research, and more. ALU Connect bridges this gap with a verified, mobile-first platform.
 
 ## Features
 

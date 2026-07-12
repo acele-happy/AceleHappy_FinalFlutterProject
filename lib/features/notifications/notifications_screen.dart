@@ -27,7 +27,7 @@ class NotificationsScreen extends ConsumerWidget {
           TextButton(
             onPressed: () =>
                 ref.read(notificationServiceProvider).markAllAsRead(user.id),
-            child: const Text('Mark all read', style: TextStyle(color: Colors.white)),
+            child: const Text('Mark all read', style: TextStyle(color: AppColors.primary)),
           ),
         ],
       ),

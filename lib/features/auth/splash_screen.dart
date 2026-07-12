@@ -54,11 +54,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                 color: Colors.white.withValues(alpha: 0.15),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                Icons.rocket_launch_rounded,
-                size: 64,
-                color: Colors.white,
-              ),
             ),
             const SizedBox(height: 24),
             Text(

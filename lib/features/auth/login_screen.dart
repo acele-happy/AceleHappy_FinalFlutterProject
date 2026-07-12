@@ -64,9 +64,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 48),
-                const Icon(Icons.rocket_launch_rounded,
-                    size: 56, color: AppColors.primary),
+                const SizedBox(height: 48),               
                 const SizedBox(height: 16),
                 Text(
                   'Welcome back',
@@ -77,7 +75,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Sign in with your ALU email to continue',
+                  'Log in to continue',
                   style: const TextStyle(color: AppColors.textSecondary),
                   textAlign: TextAlign.center,
                 ),

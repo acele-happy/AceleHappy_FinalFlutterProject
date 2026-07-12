@@ -214,7 +214,7 @@ class _WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,7 +228,7 @@ class _WelcomePage extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             user.isStudent
-                ? 'VentureLink helps you discover meaningful internship experiences with ALU student-led startups. Let\'s set up your profile so founders can find you.'
+                ? 'ALU Connect helps you discover meaningful internship experiences with ALU student-led startups. Let\'s set up your profile so founders can find you.'
                 : 'Post opportunities, review applications, and grow your team with talented ALU students. Let\'s set up your startup profile.',
             style: const TextStyle(
               color: AppColors.textSecondary,

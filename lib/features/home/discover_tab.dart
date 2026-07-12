@@ -43,9 +43,9 @@ class DiscoverTab extends ConsumerWidget {
             ),
           ],
           bottom: TabBar(
-            indicatorColor: AppColors.accent,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white70,
+            indicatorColor: AppColors.primary,
+            labelColor: AppColors.primary,
+            unselectedLabelColor: AppColors.textSecondary,
             tabs: [
               const Tab(text: 'Opportunities'),
               Tab(text: isFounder ? 'My Posts' : 'Startups'),

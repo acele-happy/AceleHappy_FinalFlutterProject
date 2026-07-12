@@ -72,21 +72,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Join VentureLink',
+                  'Create Account',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                  'Connect with ALU startups or find talented students',
-                  style: TextStyle(color: AppColors.textSecondary),
-                ),
                 const SizedBox(height: 24),
-                Text(
-                  'I am a...',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
                 const SizedBox(height: 12),
                 Row(
                   children: [

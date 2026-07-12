@@ -1,6 +1,6 @@
 {
-    "name": "alu_venture_link",
-    "short_name": "alu_venture_link",
+    "name": "ALU Connect",
+    "short_name": "ALU Connect",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
