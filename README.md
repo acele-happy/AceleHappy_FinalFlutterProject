@@ -105,15 +105,4 @@ flutter test
 flutter analyze
 ```
 
-## Technical Report Outline
-
-Your PDF report (`StudentName_FinalFlutterProject.pdf`) should cover:
-- System architecture diagrams
-- Firestore schema design
-- Riverpod state management justification
-- UI/UX decisions for ALU context
-- Scalability considerations
-- Challenges & lessons learned
-- Testing strategy & limitations
-- Future improvements (messaging, interview scheduling, analytics)
 
